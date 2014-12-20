@@ -1,5 +1,4 @@
 from math import *
-from numpy import *
 
 # Constants
 G = 6.67384e-11
