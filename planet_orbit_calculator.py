@@ -1,0 +1,23 @@
+from math import *
+
+# Constants
+G = 6.67384e-11
+c = 3e8
+
+# Give value for the stellar mass, planet mass, and orbital period.
+M = int(input("Stellar mass in kilograms:"))
+N = int(input("Planet mass in kilograms:"))
+P = int(input("Orbital period in seconds:"))
+
+# Total mass
+T = M + N
+
+# Using the input values, we find the semimajor axis given by Kepler's 3rd Law.
+a = (((P**2)*G*T)/(4*(pi**2)))**(1/3)
+
+# Consider the relationship M * r = a * T. We find the radius of the star's wobble around the center of mass in meters.
+r = a * T / M
+
+# Changes the units of meters to light travel time.
+l = r / c
+print "The radius of the star's wobble around the center of mass is", r, "meters or", l, "lightseconds."
