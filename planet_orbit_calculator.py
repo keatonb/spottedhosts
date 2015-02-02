@@ -20,7 +20,7 @@ def stellarreflextime(M,N,P,i=0):
     """
     
     # Convert to CGS units
-    M = M * Msun
+    M = M * Msun * math.cos(i)
     N = N * Mearth
     P = P * Yearinsecs
     
@@ -44,12 +44,7 @@ if __name__ == "__main__":
     M = int(input("Stellar mass in Solar masses:"))
     N = int(input("Planet mass in Earth masses:"))
     P = int(input("Orbital period in years:"))
-    i = int(input("Inclination in radians:"))
-    # Consider an inclination of a planetary orbit, as it will affect the measured delay time.
-    if i is not 0:
-        M = M * math.sin(i)
-        print M
+#    i = int(input("Inclination in radians:"))
     l = stellarreflextime(M,N,P,i=0)
     r = l * c
     print "The radius of the star's wobble around the center of mass is", r, "centimeters or", l, "lightseconds."
-
