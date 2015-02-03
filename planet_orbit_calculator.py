@@ -41,10 +41,10 @@ def stellarreflextime(M,N,P,i=0):
 
 if __name__ == "__main__":
     # Give value for the stellar mass, planet mass, orbital period, and inclination.
-    M = int(input("Stellar mass in Solar masses:"))
-    N = int(input("Planet mass in Earth masses:"))
-    P = int(input("Orbital period in years:"))
-#    i = int(input("Inclination in radians:"))
-    l = stellarreflextime(M,N,P,i=0)
+    M = float(raw_input("Stellar mass in Solar masses: "))
+    N = float(raw_input("Planet mass in Earth masses: "))
+    P = float(raw_input("Orbital period in years: "))
+    i = float(raw_input("Inclination in radians [0]: ") or "0")
+    l = stellarreflextime(M,N,P,i=i)
     r = l * c
     print "The radius of the star's wobble around the center of mass is", r, "centimeters or", l, "lightseconds."
