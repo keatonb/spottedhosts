@@ -20,7 +20,7 @@ def stellarreflextime(M,N,P,i=0):
     """
     
     # Convert to CGS units
-    M = M * Msun * math.cos(i)
+    M = M * Msun
     N = N * Mearth
     P = P * Yearinsecs
     
@@ -35,6 +35,9 @@ def stellarreflextime(M,N,P,i=0):
 
     # Changes the units of meters to light travel time.
     l = r / c
+    
+    # Include effect of inclination
+    l = l * math.cos(i)
 
     # Return result
     return l
