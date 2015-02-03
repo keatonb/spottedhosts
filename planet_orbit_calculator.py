@@ -51,3 +51,14 @@ if __name__ == "__main__":
     l = stellarreflextime(M,N,P,i=i)
     r = l * c
     print "The radius of the star's wobble around the center of mass is", r, "centimeters or", l, "lightseconds."
+    
+def timeoffset(t,o,p=0)
+    """Returns stellar reflex time in seconds
+
+    inputs:
+    t = time
+    o = offset
+    p = phase
+    """
+    t = np.arange()
+    o = t + np.sin(t)
