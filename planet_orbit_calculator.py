@@ -52,13 +52,18 @@ if __name__ == "__main__":
     r = l * c
     print "The radius of the star's wobble around the center of mass is", r, "centimeters or", l, "lightseconds."
     
-def timeoffset(t,o,p=0)
-    """Returns stellar reflex time in seconds
-
-    inputs:
+def timeoffset(t,o,p=0):
+    """
     t = time
     o = offset
     p = phase
     """
-    t = np.arange()
-    o = t + np.sin(t)
+    
+    t = np.arange(0,1000,5)
+    o = np.sin(t + p)
+    
+    #Plot the perturbed time
+    y = t + o
+    
+    #Return result
+    print y
