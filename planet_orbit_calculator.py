@@ -52,18 +52,19 @@ if __name__ == "__main__":
     r = l * c
     print "The radius of the star's wobble around the center of mass is", r, "centimeters or", l, "lightseconds."
     
-def timeoffset(t,o,p=0):
+def timeoffset(t,o,p,phase=0):
     """
-    t = time
-    o = offset
-    p = phase
+    t = List of times observed
+    o = Time delay
+    p = Orbital period
+    phase = Starting phase of the orbit given in radians 
     """
+    t = np.array(t)
+    p = float(p)
+    offset = np.sin((2*np.pi*(t/p)) - phase) * o
     
-    t = np.arange(0,1000,5)
-    o = np.sin(t + p)
-    
-    #Plot the perturbed time
-    y = t + o
+    #Calculate the perturbed time
+    y = t + offset
     
     #Return result
-    print y
+    return y
