@@ -6,12 +6,11 @@ Created on Tue Feb 24 12:53:01 2015
 """
 import numpy as np
 import matplotlib.pyplot as plt
-from pylab import *
 from planet_orbit_calculator import stellarreflextime
 
-M = np.arange(1,5.1,1)
-N = np.arange(1,5.1,1)
-P = np.arange(1,5.1,1)
+M = np.arange(0.2,5.1,0.1)
+N = np.arange(0.5,3000,10)
+P = np.arange(0.1,10.1,0.1)
 
 res = np.zeros((len(M),len(N),len(P)))
 for i in range(len(M)):
@@ -21,6 +20,6 @@ for i in range(len(M)):
 
 fig = plt.figure()
 ax = fig.add_subplot(111)
-plt.contourf(M,N,res[:,:,0]) #slice: for 1 year period
-colorbar()
+plt.contourf(N,M,res[:,:,-1])
+plt.colorbar()
 plt.show()
