@@ -23,7 +23,7 @@ def time_delay(M,N,P):
                 res = [stellarreflextime(stellar_mass,planet_mass, period) for stellar_mass in M for planet_mass in N for period in P]         
                 return res
                 
-res = np.zeros(x,y,z)
+res = np.zeros((len(M),len(N),len(P)))
 for i in range(len(M)):
     for j in range(len(N)):
         for k in range(len(P)):
