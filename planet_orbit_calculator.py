@@ -1,6 +1,7 @@
 #! /usr/bin/env python
 
 import math
+import numpy as np
 
 # Constants
 G = 6.67259e-8 #Gravitational constant (cm^2 g^-1 s^-2)
