@@ -1,6 +1,7 @@
 #! /usr/bin/env python
 
 import math
+import numpy as np
 
 # Constants
 G = 6.67259e-8 #Gravitational constant (cm^2 g^-1 s^-2)
@@ -56,7 +57,7 @@ def timeoffset(t,o,p,phase=0):
     """
     t = List of times observed
     o = Time delay
-    p = Orbital period
+    p = Orbital period (same units as t)
     phase = Starting phase of the orbit given in radians 
     """
     t = np.array(t)
