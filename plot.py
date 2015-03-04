@@ -13,8 +13,14 @@ for i in range(len(M)):
         for k in range(len(P)):
             res[i,j,k] = stellarreflextime(M[i],N[j],P[k])
 
-fig = plt.figure()
-ax = fig.add_subplot(111)
-plt.contourf(N,M,res[:,:,-1])
-plt.colorbar()
-plt.show()
+for k in range(len(P)):
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    plt.contourf(N,M,res[:,:,k])
+    plt.title("Period = %s" % P[k])
+    plt.xlabel("Planetary Mass $(M_E)$")
+    plt.ylabel("Stellar Mass $(M_\odot)$")
+    cbar = plt.colorbar()
+    cbar.set_label("Seconds", rotation=270)
+    plt.show()
+    #savefig("P=%s" % P[k])
