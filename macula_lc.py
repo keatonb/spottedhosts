@@ -1,8 +1,9 @@
 #! /usr/bin/env python
 import numpy as np
 import matplotlib.pyplot as plt
-from planet_orbit_calculator import timeoffset
-from pymacula import MaculaModel, Spot, Star
+from planet_orbit_calculator import timeoffset, stellarreflextime
+from pymacula import MaculaModel, Spot
+#import plot.py
 
 #Reference: https://github.com/timothydmorton/pymacula
 
@@ -16,21 +17,34 @@ from pymacula import MaculaModel, Spot, Star
 #Star(self, incl=1.5707963267948966, Peq=30.0, kappa2=0.3, kappa4=0.3, c1=0.3999, c2=0.4269, c3=-0.0227, c4=-0.839, 
 #   d1=0.3999, d2=0.4269, d3=-0.0227, d4=-0.839)
 
-#Keep inst_offsets = None and blend_factors = None
+testspot = Spot(lon=0, lat=0, alpha_max=5.0, contrast=0.3)
+testspot.tmax = 0.2
+testspot.lifetime = 1.
+testspot.ingress = 0.7
+testspot.egress = 0.5
 
-
-testspot = Spot(lon=0, lat=0, alpha_max=5.0, contrast=0.3, tmax=1, lifetime=1, ingress=1, egress=1)
-teststar = Star()
-
-model = MaculaModel(spots=[testspot],star=[teststar]) #default, no randomness
+model = MaculaModel(spots=[testspot],nspots=1)
 ts = np.arange(0,500,0.05)
 plt.plot(ts, model(ts))
 
-t = timeoffset(ts,5.,50.,0)
-plt.plot(ts, model(t))
-plt.title("LCs Comparing Time vs Perturbed Time Models")
-plt.xlabel("Time (s)")
-plt.ylabel("Flux")
-plt.show()
+M = np.arange(0.2,5.1,0.1)
+N = np.arange(0.5,3000,10)
+P = np.arange(0.1,10.1,0.1)
 
-print np.sum((model(ts) - model(t))**2) #difference
+res = np.zeros((len(M),len(N),len(P),len(ts)))
+for i in range(len(M)):
+    for j in range(len(N)):
+        for k in range(len(P)):
+            for l in range(len(ts)):
+                res[i,j,k,l] = timeoffset(ts[l],stellarreflextime(M[i],N[j],P[k]),P[k],0)
+            
+for k in range(len(P)):
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    plt.contourf(N,M,res[:,:,k])
+    plt.title("Period = %s years" % P[k])
+    plt.xlabel("Planetary Mass $(M_E)$")
+    plt.ylabel("Stellar Mass $(M_\odot)$")
+    cbar = plt.colorbar()
+    cbar.set_label("Seconds", rotation=270)
+    plt.show()
