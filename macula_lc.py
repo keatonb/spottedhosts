@@ -36,7 +36,7 @@ for i in range(len(M)):
     for j in range(len(N)):
         for k in range(len(P)):
             for l in range(len(ts)):
-                res[i,j,k,l] = timeoffset(ts[l],stellarreflextime(M[i],N[j],P[k]),P[k],0)
+                res[i,j,k,l] = (model(ts)-model(timeoffset(ts[l],stellarreflextime(M[i],N[j],P[k]),P[k],0)))**2
                 #res[i,j,k] = stellarreflextime(M[i],N[j],P[k])
                 #t = timeoffset(ts,stellarreflextime(M[i],N[j],P[k]),P[k],0)
                 #u = (model(ts) - model(t))**2
