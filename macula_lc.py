@@ -37,6 +37,9 @@ for i in range(len(M)):
         for k in range(len(P)):
             for l in range(len(ts)):
                 res[i,j,k,l] = timeoffset(ts[l],stellarreflextime(M[i],N[j],P[k]),P[k],0)
+                #res[i,j,k] = stellarreflextime(M[i],N[j],P[k])
+                #t = timeoffset(ts,stellarreflextime(M[i],N[j],P[k]),P[k],0)
+                #u = (model(ts) - model(t))**2
             
 for k in range(len(P)):
     fig = plt.figure()
