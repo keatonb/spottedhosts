@@ -17,7 +17,7 @@ for k in range(len(P)):
     fig = plt.figure()
     ax = fig.add_subplot(111)
     plt.contourf(N,M,res[:,:,k])
-    plt.title("Period = %s" % P[k])
+    plt.title("Period = %s years" % P[k])
     plt.xlabel("Planetary Mass $(M_E)$")
     plt.ylabel("Stellar Mass $(M_\odot)$")
     cbar = plt.colorbar()

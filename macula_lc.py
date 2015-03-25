@@ -2,6 +2,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from planet_orbit_calculator import timeoffset, stellarreflextime
+#from matplotlib.backends.backend_pdf import PdfPages
 from pymacula import MaculaModel, Spot
 #import plot.py
 
@@ -24,30 +25,31 @@ testspot.ingress = 0.7
 testspot.egress = 0.5
 
 model = MaculaModel(spots=[testspot],nspots=1)
-ts = np.arange(0,500,0.05)
+ts = np.arange(0,500,0.05) #Unit: days
 plt.plot(ts, model(ts))
 
 M = np.arange(0.2,5.1,0.1)
-N = np.arange(0.5,3000,10)
+N = np.arange(0.5,3000,100)
 P = np.arange(0.1,10.1,0.1)
 
-res = np.zeros((len(M),len(N),len(P),len(ts)))
+res = np.zeros((len(M),len(N),len(P)))
 for i in range(len(M)):
+    print "Stellar Mass " + str(M[i])
     for j in range(len(N)):
+        print "Planetary Mass " + str(N[j])
         for k in range(len(P)):
-            for l in range(len(ts)):
-                res[i,j,k,l] = (model(ts)-model(timeoffset(ts[l],stellarreflextime(M[i],N[j],P[k]),P[k],0)))**2
-                #res[i,j,k] = stellarreflextime(M[i],N[j],P[k])
-                #t = timeoffset(ts,stellarreflextime(M[i],N[j],P[k]),P[k],0)
-                #u = (model(ts) - model(t))**2
-            
+            print "Period " + str(P[k])
+            t = timeoffset(ts,stellarreflextime(M[i],N[j],P[k]),P[k],0)
+            res[i,j,k] = np.sum((model(ts) - model(t))**2)
+                
 for k in range(len(P)):
     fig = plt.figure()
     ax = fig.add_subplot(111)
     plt.contourf(N,M,res[:,:,k])
+    #plt.contourf(N,M,res[:,:,k],np.arange(0,1e-6,1e-7))
     plt.title("Period = %s years" % P[k])
     plt.xlabel("Planetary Mass $(M_E)$")
     plt.ylabel("Stellar Mass $(M_\odot)$")
     cbar = plt.colorbar()
     cbar.set_label("Seconds", rotation=270)
-    plt.show()
+    plt.savefig("P=%s.png" % P[k])
